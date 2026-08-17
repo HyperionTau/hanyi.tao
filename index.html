@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanyi Tao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --ink: #1A1D1F;
+    --muted: #6B6F76;
+    --accent: #2B4570;
+    --line: #E3E1DC;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Nav ---------- */
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250, 250, 248, 0.9);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+  }
+
+  .nav-inner a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .nav-inner a:hover,
+  .nav-inner a:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  header {
+    margin-bottom: 3.5rem;
+    animation: rise 0.6s ease-out both;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 5vw, 2.8rem);
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  .title {
+    color: var(--accent);
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin: 0 0 0.15rem;
+  }
+
+  .affiliation {
+    color: var(--muted);
+    font-size: 0.98rem;
+    margin: 0 0 1.4rem;
+  }
+
+  .interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .interest {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink);
+    background: #F1F0EC;
+    border: 1px solid var(--line);
+    padding: 0.3rem 0.65rem;
+    border-radius: 3px;
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.9rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .contact a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .contact a:hover,
+  .contact a:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  section {
+    margin-bottom: 3.2rem;
+    scroll-margin-top: 4rem;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1.1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ---------- Generic row (employment, education, grants, awards, teaching, talks) ---------- */
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .row:last-child { border-bottom: none; }
+
+  .row-main {
+    flex: 1;
+  }
+
+  .row-org {
+    color: var(--muted);
+  }
+
+  .row-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .course-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    display: inline-block;
+    width: 6.2rem;
+  }
+
+  /* ---------- Publications ---------- */
+
+  .pub {
+    margin-bottom: 1.4rem;
+  }
+  .pub:last-child { margin-bottom: 0; }
+
+  .pub-title {
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+  }
+
+  .pub-meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .pub-meta em {
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  /* ---------- Working papers ---------- */
+
+  .paper {
+    margin-bottom: 1.1rem;
+  }
+  .paper:last-child { margin-bottom: 0; }
+
+  .paper-title {
+    font-weight: 600;
+    margin: 0 0 0.2rem;
+  }
+
+  .paper-title a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .paper-title a:hover,
+  .paper-title a:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .paper-coauthors {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  /* ---------- Simple text blocks (service, skills) ---------- */
+
+  .plain p {
+    margin: 0 0 0.6rem;
+  }
+  .plain p:last-child { margin-bottom: 0; }
+
+  .plain .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 0.5rem;
+  }
+
+  footer {
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-family: 'IBM Plex Mono', monospace;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    header { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  @media (max-width: 480px) {
+    main { padding: 2.5rem 1.25rem 4rem; }
+    .row { flex-direction: column; align-items: flex-start; gap: 0.15rem; }
+    .row-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#employment">Employment</a>
+    <a href="#education">Education</a>
+    <a href="#publications">Publications</a>
+    <a href="#working-papers">Working Papers</a>
+    <a href="#grants">Grants</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#presentations">Presentations</a>
+    <a href="#talks">Seminar Talks</a>
+    <a href="#service">Service</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main>
+
+  <header>
+    <h1>Hanyi Tao</h1>
+    <p class="title">Assistant Professor</p>
+    <p class="affiliation">School of Entrepreneurship and Management · ShanghaiTech University</p>
+    <div class="interests">
+      <span class="interest">International Trade</span>
+      <span class="interest">Macroeconomics</span>
+      <span class="interest">Firm Innovation</span>
+    </div>
+    <div class="contact">
+      <a href="mailto:taohy@shanghaitech.edu.cn">taohy@shanghaitech.edu.cn</a>
+      <a href="tel:+862120684786">+86 021-20684786</a>
+      <a href="https://hanyitao.weebly.com/" target="_blank" rel="noopener">hanyitao.weebly.com</a>
+      <span>Shanghai, China</span>
+    </div>
+  </header>
+
+  <section id="employment">
+    <p class="eyebrow">Employment</p>
+    <div class="row">
+      <span class="row-main">Assistant Professor <span class="row-org">· ShanghaiTech University</span></span>
+      <span class="row-meta">2019 — Present</span>
+    </div>
+  </section>
+
+  <section id="education">
+    <p class="eyebrow">Education</p>
+    <div class="row">
+      <span class="row-main">Ph.D. in Economics <span class="row-org">· The Chinese University of Hong Kong</span></span>
+      <span class="row-meta">2014 — 2019</span>
+    </div>
+    <div class="row">
+      <span class="row-main">M.Phil. in Economics <span class="row-org">· The Chinese University of Hong Kong</span></span>
+      <span class="row-meta">2012 — 2014</span>
+    </div>
+    <div class="row">
+      <span class="row-main">B.A. in Finance <span class="row-org">· Shanghai University of Finance and Economics</span></span>
+      <span class="row-meta">2008 — 2012</span>
+    </div>
+  </section>
+
+  <section id="publications">
+    <p class="eyebrow">Publications</p>
+    <div class="pub">
+      <p class="pub-title">Learning by Exporting: Evidence from Patent Citations in China</p>
+      <p class="pub-meta">With Yousha Liang, Kang Shi, and Juanyi Xu. <em>Journal of International Economics</em>, 150 (2024): 103933.</p>
+    </div>
+  </section>
+
+  <section id="working-papers">
+    <p class="eyebrow">Working Papers</p>
+
+    <div class="paper">
+      <p class="paper-title"><a href="https://www.dropbox.com/s/ahlxstao3ulf4eo/JMP_HANYI_TAO.pdf?dl=0" target="_blank" rel="noopener">Targeted Subsidy and Capital (Mis)Allocation</a></p>
+      <p class="paper-coauthors">Solo-authored</p>
+    </div>
+
+    <div class="paper">
+      <p class="paper-title">Knowledge Diffusion and Local Innovation: Evidence from China</p>
+      <p class="paper-coauthors">With Yousha Liang, Kang Shi, Juanyi Xu, and Junjie Tang</p>
+    </div>
+
+    <div class="paper">
+      <p class="paper-title">Place-Based Policies, Agglomeration, and Firm Innovation: Evidence from China</p>
+      <p class="paper-coauthors">With Haiwei Jiang, Yousha Liang, and Yu Qin</p>
+    </div>
+
+    <div class="paper">
+      <p class="paper-title">Market Contraction and Innovation Divergence: The Impact of the US-China Trade War on Chinese Innovation</p>
+      <p class="paper-coauthors">With Xiao Ma, Yueyuan Ma, and Yiran Zhang</p>
+    </div>
+
+    <div class="paper">
+      <p class="paper-title">How Does the Tariff War Affect Domestic M&amp;As?</p>
+      <p class="paper-coauthors">With Huisi Li, Yousha Liang, and Jing Zhao</p>
+    </div>
+
+    <div class="paper">
+      <p class="paper-title">Measuring Global Technology Creation and Diffusion by New Words</p>
+      <p class="paper-coauthors">With Hanming Fang, Zheng (Michael) Song, and Yiran Zhang</p>
+    </div>
+  </section>
+
+  <section id="grants">
+    <p class="eyebrow">Grants</p>
+    <div class="row">
+      <span class="row-main">National Science Foundation of China <span class="row-org">· PI</span></span>
+      <span class="row-meta">RMB 300,000 · 2023–2025</span>
+    </div>
+    <div class="row">
+      <span class="row-main">Supplementary Fund <span class="row-org">· ShanghaiTech University</span></span>
+      <span class="row-meta">RMB 155,000 · 2025</span>
+    </div>
+    <div class="row">
+      <span class="row-main">Shanghai Innovation Action Plan Soft Science Program <span class="row-org">· PI</span></span>
+      <span class="row-meta">RMB 50,000 · 2021–2022</span>
+    </div>
+    <div class="row">
+      <span class="row-main">Shanghai Pujiang Talent Program <span class="row-org">· PI</span></span>
+      <span class="row-meta">RMB 150,000 · 2021–2024</span>
+    </div>
+    <div class="row">
+      <span class="row-main">Startup Grant <span class="row-org">· ShanghaiTech University</span></span>
+      <span class="row-meta">RMB 800,000 · 2019</span>
+    </div>
+  </section>
+
+  <section id="awards">
+    <p class="eyebrow">Honors and Awards</p>
+    <div class="row">
+      <span class="row-main">Best Thesis Award</span>
+      <span class="row-meta">2019</span>
+    </div>
+    <div class="row">
+      <span class="row-main">Ph.D. Scholarship</span>
+      <span class="row-meta">2014–2017</span>
+    </div>
+    <div class="row">
+      <span class="row-main">M.Phil. Scholarship</span>
+      <span class="row-meta">2012–2014</span>
+    </div>
+  </section>
+
+  <section id="teaching">
+    <p class="eyebrow">Teaching</p>
+    <div class="row"><span class="course-code">ECON 1001</span><span class="row-main">Introduction to Economics</span></div>
+    <div class="row"><span class="course-code">ECON 1301</span><span class="row-main">Macroeconomics</span></div>
+    <div class="row"><span class="course-code">FINA 1307</span><span class="row-main">Money and Banking</span></div>
+    <div class="row"><span class="course-code">FINA 1309</span><span class="row-main">International Finance</span></div>
+    <div class="row"><span class="course-code">ECON 2001</span><span class="row-main">Intermediate Economics (Macroeconomics)</span></div>
+    <div class="row"><span class="course-code">MGMT 2100</span><span class="row-main">Basics of Intelligent Decisions and Social Computing</span></div>
+  </section>
+
+  <section id="presentations">
+    <p class="eyebrow">Conference Presentations</p>
+    <div class="row"><span class="row-main">Chinese Economists Society Annual Meeting, Chengdu</span><span class="row-meta">Jul 2026</span></div>
+    <div class="row"><span class="row-main">Biannual Meeting of Hong Kong Economic Association, Macau</span><span class="row-meta">Jun 2026</span></div>
+    <div class="row"><span class="row-main">World Congress of the Econometric Society – Korea, Seoul</span><span class="row-meta">Aug 2025</span></div>
+    <div class="row"><span class="row-main">Chinese Economists Society Annual Meeting, Hangzhou</span><span class="row-meta">Jul 2024</span></div>
+    <div class="row"><span class="row-main">Asia Meeting of the Econometric Society – China, Hangzhou</span><span class="row-meta">Jun 2024</span></div>
+    <div class="row"><span class="row-main">China International Conference in Macroeconomics, Chengdu</span><span class="row-meta">Jun 2023</span></div>
+    <div class="row"><span class="row-main">Economic Society (China Meeting), Shanghai</span><span class="row-meta">Jul 2021</span></div>
+    <div class="row"><span class="row-main">China International Conference in Macroeconomics, Beijing</span><span class="row-meta">Jun 2021</span></div>
+    <div class="row"><span class="row-main">NBER-AIEA Conference on Innovation and Entrepreneurship, Shanghai</span><span class="row-meta">Aug 2020</span></div>
+    <div class="row"><span class="row-main">Economic Society World Congress, Italy (Online)</span><span class="row-meta">Aug 2020</span></div>
+    <div class="row"><span class="row-main">China International Conference in Macroeconomics, Shenzhen</span><span class="row-meta">Jun 2019</span></div>
+  </section>
+
+  <section id="talks">
+    <p class="eyebrow">Invited Seminar Talks</p>
+    <div class="row"><span class="row-main">Seminar, University of Nottingham (Ningbo)</span><span class="row-meta">Mar 2026</span></div>
+    <div class="row"><span class="row-main">Seminar, Fudan University</span><span class="row-meta">Nov 2025</span></div>
+    <div class="row"><span class="row-main">Macro Workshop, Yanbian University</span><span class="row-meta">Aug 2025</span></div>
+    <div class="row"><span class="row-main">Seminar, South University of Science and Technology</span><span class="row-meta">Jun 2025</span></div>
+    <div class="row"><span class="row-main">Seminar, Renmin University</span><span class="row-meta">Jun 2025</span></div>
+    <div class="row"><span class="row-main">Macro Workshop, Tsinghua University</span><span class="row-meta">Aug 2024</span></div>
+    <div class="row"><span class="row-main">Seminar, Shanghai University of Finance and Economics</span><span class="row-meta">Dec 2023</span></div>
+    <div class="row"><span class="row-main">Macro Workshop, Zhejiang University</span><span class="row-meta">Dec 2020</span></div>
+    <div class="row"><span class="row-main">International Trade Workshop, CUHK</span><span class="row-meta">Jul 2020</span></div>
+    <div class="row"><span class="row-main">Macro Workshop on Chinese Economy, SEM, Tsinghua University</span><span class="row-meta">Oct 2019</span></div>
+    <div class="row"><span class="row-main">Applied Econ Brown-bag, CUHK</span><span class="row-meta">Nov 2018</span></div>
+    <div class="row"><span class="row-main">Academia Sinica</span><span class="row-meta">Nov 2018</span></div>
+  </section>
+
+  <section id="service">
+    <p class="eyebrow">Professional Service</p>
+    <div class="plain">
+      <p><span class="label">Referee</span>Management Science, Strategic Management Journal, Research Policy, China Economic Review</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="eyebrow">Skills</p>
+    <div class="plain">
+      <p><span class="label">Programming</span>Python, MATLAB, Stata, ArcGIS, LaTeX</p>
+      <p><span class="label">Languages</span>Mandarin (Native), English (Fluent)</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <p class="eyebrow">Contact</p>
+    <p class="row-main" style="display:block; margin-bottom:0.8rem;">
+      Room 307, School of Entrepreneurship and Management<br>
+      ShanghaiTech University<br>
+      Shanghai, China
+    </p>
+    <div class="contact">
+      <a href="mailto:taohy@shanghaitech.edu.cn">taohy@shanghaitech.edu.cn</a>
+      <a href="tel:+862120684786">+86 021-20684786</a>
+    </div>
+  </section>
+
+  <footer>
+    Updated July 2026
+  </footer>
+
+</main>
+</body>
+</html>
